@@ -1,7 +1,17 @@
 (ns robot-name)
 
-(defn robot [] ())
+(def char-set {:alpha "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+               :numeric "0123456789"})
 
-(defn robot-name [robot] ())
+(defn- rand-name []
+  (str (rand-nth (:alpha char-set))
+       (rand-nth (:alpha char-set))
+       (rand-nth (:numeric char-set))
+       (rand-nth (:numeric char-set))
+       (rand-nth (:numeric char-set))))
 
-(defn reset-name [robot] ())
+(defn robot [] (atom (rand-name)))
+
+(defn robot-name [robot] (@robot))
+
+(defn reset-name [robot] (reset! robot (rand-name)))
